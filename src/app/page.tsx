@@ -11,9 +11,9 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-bold mb-4">5分タスク管理アプリ</h1>
       <button
         className={`${buttonColor} text-white font-bold py-2 px-4 rounded-4xl min-w-[200px]`}
-        onClick={() => setIsWaterable((prev) => !prev)}
       >
         水やり
       </button>
