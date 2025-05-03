@@ -31,7 +31,7 @@ app.post("/api/tasks", vValidator("json", TaskSchema.create), (c) => {
 });
 
 app.put(
-  "/api/tasks",
+  "/api/tasks/:id",
   vValidator("json", TaskSchema.updateBody),
   vValidator("param", TaskSchema.updateParam),
   (c) => {
@@ -133,7 +133,13 @@ app.get(
 
 app.onError((err, c) => {
   console.error(`${err}`);
-  return c.text("Internal Server Error", 500);
+  return c.json(
+    {
+      message: "Internal Server Error",
+      error: err.message,
+    },
+    500
+  );
 });
 
 serve({
