@@ -1,4 +1,4 @@
-import PlantAnimation from '@/components/PlantAnimation';
+import PlantAnimation from "@/components/PlantAnimation";
 
 const Homepage = () => {
   return (
@@ -10,4 +10,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-

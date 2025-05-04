@@ -1,5 +1,6 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import Database from "better-sqlite3";
 import { TasksQueries, RecordsQueries } from "./queries.ts";
 import { TaskSchema, RecordSchema } from "./schema.ts";
@@ -8,6 +9,9 @@ import { vValidator } from "@hono/valibot-validator";
 
 const app = new Hono();
 const db = new Database("src/database.db", { verbose: console.log });
+
+// cors 
+app.use("*", cors({ origin: "*" }));
 
 // テーブル作成
 db.exec(TasksQueries.createTable);
