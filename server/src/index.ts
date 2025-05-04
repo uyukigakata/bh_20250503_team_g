@@ -131,6 +131,14 @@ app.get(
   }
 );
 
+app.get("/api/records/latest", (c) => {
+  const records = db.prepare(RecordsQueries.getAll).all();
+  const latestRecords = records.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+  return c.json(latestRecords);
+});
+
 app.onError((err, c) => {
   console.error(`${err}`);
   return c.json(
