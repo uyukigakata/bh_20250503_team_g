@@ -13,5 +13,7 @@ npx create-next-app@latest .
 
 npm install @rive-app/react-canvas
 
+npm install date-fns 
+
 
 ```
