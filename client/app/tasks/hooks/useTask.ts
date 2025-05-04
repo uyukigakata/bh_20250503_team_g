@@ -1,60 +1,46 @@
 import { fetcher } from "../../../utils/fetch";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type Task = {
   id: number;
-  title: string;
+  name: string;
 };
 
 export const useTask = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const data = await fetcher("tasks", "GET");
-        setTasks(data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
-
-    fetchTasks();
-  }
-  , []);
+  const fetchTasks = async () => {
+    console.log("Fetching tasks...");
+    try {
+      const data = await fetcher("api/tasks", "GET");
+      console.log("Fetched tasks:", data);
+      setTasks(data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   const addTask = async (taskName: string) => {
+    console.log("Adding task:", taskName);
     try {
-      const newTask = await fetcher("tasks", "POST", { name: taskName });
-      setTasks((prevTasks) => [...prevTasks, newTask]);
+      await fetcher("api/tasks", "POST", { name: taskName });
     } catch (error) {
       console.error("Error adding task:", error);
     }
   };
+
   const deleteTask = async (taskId: number) => {
     try {
-      await fetcher(`tasks/${taskId}`, "DELETE");
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      await fetcher(`api/tasks/${taskId}`, "DELETE");
     } catch (error) {
       console.error("Error deleting task:", error);
     }
-  }
-  // TODO: 時間があれば更新機能を実装する
-  // const updateTask = async (taskId: number, updatedName: string) => {
-  //   try {
-  //     const updatedTask = await fetcher(`tasks/${taskId}`, "PUT", { name: updatedName });
-  //     setTasks((prevTasks) =>
-  //       prevTasks.map((task) => (task.id === taskId ? updatedTask : task))
-  //     );
-  //   } catch (error) {
-  //     console.error("Error updating task:", error);
-  //   }
-  // }
+  };
+
   return {
     tasks,
     addTask,
     deleteTask,
+    fetchTasks,
   };
-}
-
-
+};

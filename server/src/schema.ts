@@ -10,9 +10,7 @@ export const TaskSchema = {
   updateParam: v.object({
     id: v.number(),
   }),
-  delete: v.object({
-    id: v.number(),
-  }),
+  delete: v.number(),
   getAll: v.object({}),
   getById: v.object({
     id: v.number(),
@@ -27,12 +25,8 @@ export const RecordSchema = {
   updateBody: v.object({
     name: v.string(),
   }),
-  updateParam: v.object({
-    id: v.number(),
-  }),
-  delete: v.object({
-    id: v.number(),
-  }),
+  updateParam: v.number(),
+  delete: v.number(),
   getAll: v.object({}),
   getById: v.object({
     id: v.number(),
