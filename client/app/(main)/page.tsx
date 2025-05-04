@@ -1,4 +1,4 @@
-import PlantAnimation from "@/components/PlantAnimation";
+import PlantAnimation from "components/PlantAnimation";
 import Link from "next/link";
 
 const Homepage = () => {
