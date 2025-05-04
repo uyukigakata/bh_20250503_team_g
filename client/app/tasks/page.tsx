@@ -1,34 +1,43 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import { useTask } from "./hooks/useTask";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const [taskTitle, setTaskTitle] = useState("");
-  const { tasks, addTask } = useTask();
-  const handleAddTask = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (taskTitle.trim()) {
-      addTask(taskTitle);
-      setTaskTitle(""); // 入力欄をクリア
+  const { tasks, addTask, deleteTask, fetchTasks } = useTask();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchTasks();
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleAddTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (taskTitle.trim() !== "") {
+      await addTask(taskTitle);
+      await fetchTasks();
+      setTaskTitle("");
     }
   };
-  
-  const handleDeleteTask = (taskId: number) => {
-    deleteTask(taskId);
+
+  const handleDeleteTask = async (taskId: number) => {
+    console.log("Deleting task:", taskId);
+    await deleteTask(taskId);
+    await fetchTasks();
   };
 
-  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden">
       <div className="flex items-center bg-slate-50 p-4 pb-2 justify-between">
         <Link href="/">
-          <div
-            className="text-[#0e141b] flex w-12 h-12 shrink-0 items-center cursor-pointer"
-            data-icon="ArrowLeft"
-            data-size="24px"
-            data-weight="regular"
-          >
+          <div className="text-[#0e141b] flex w-12 h-12 shrink-0 items-center cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -44,13 +53,15 @@ export default function Page() {
           一日五分習慣をスタートする
         </h2>
       </div>
+
       <h2 className="text-[#0e141b] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
         Todays tasks
       </h2>
+
       {/* タスク追加フォーム */}
       <form
         onSubmit={handleAddTask}
-        className="flex gap-2 justify-center items-center  p-4 rounded-lg "
+        className="flex gap-2 justify-center items-center p-4 rounded-lg"
       >
         <input
           type="text"
@@ -66,21 +77,16 @@ export default function Page() {
           追加
         </button>
       </form>
+
       {tasks.map((task) => (
         <div
           key={task.id}
           className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between"
         >
           <p className="text-[#0e141b] text-base font-normal flex-1 truncate">
-            {task.title}
+            {task.name}
           </p>
           <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              className="h-5 w-5 rounded border-[#d0dbe7] border-2 bg-transparent text-[#1980e6] checked:bg-[#1980e6] checked:border-[#1980e6] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#d0dbe7] focus:outline-none"
-              checked={selectedTaskId === task.id}
-              onChange={() => setSelectedTaskId(task.id)}
-            />
             <button
               className="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition"
               onClick={() => handleDeleteTask(task.id)}
@@ -89,5 +95,7 @@ export default function Page() {
             </button>
           </div>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
