@@ -30,7 +30,6 @@ const Homepage = () => {
 
   return (
     <div>
-      <h1>mainPage</h1>
       <PlantAnimation streakCount={streakCount} isBroken={isBroken} />
       <div className="flex flex-col items-center justify-center h-screen">
         <button
