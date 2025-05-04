@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-
+import TimerAnimation from "../../components/TimerAnimation";
 export default function Timer() {
     const [timeLeft, setTimeLeft] = useState<number>(5 * 60);
     const [isRunning, setIsRunning] = useState<boolean>(true);
@@ -24,8 +24,11 @@ export default function Timer() {
         }
     }, [timeLeft]);
 
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <TimerAnimation />
+
             <div className="text-xl font-semibold mb-4">
                 残り時間: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, "0")}
             </div>
