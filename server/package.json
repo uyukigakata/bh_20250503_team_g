@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hono/node-server": "^1.14.1",
+    "@hono/valibot-validator": "^0.5.2",
+    "better-sqlite3": "^11.9.1",
+    "hono": "^4.7.7",
+    "valibot": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.15.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4"
+  }
+}
