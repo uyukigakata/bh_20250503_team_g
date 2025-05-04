@@ -29,4 +29,5 @@ export const RecordsQueries = {
   getByTaskId: `SELECT * FROM records WHERE task_id = ?`,
   getByCreatedASC: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at ASC`,
   getByCreatedDESC: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at DESC`,
+  getLatestRecord: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at DESC LIMIT 1`,
 };
