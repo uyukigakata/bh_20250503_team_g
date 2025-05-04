@@ -1,5 +1,5 @@
 'use client';
-import RiveComponent  from '@rive-app/react-canvas';
+import RiveComponent from '@rive-app/react-canvas';
 
 type Props = {
   streakCount: number;
@@ -23,4 +23,5 @@ const PlantAnimation = ({ streakCount, isBroken }: Props) => {
     </div>
   );
 };
+
 export default PlantAnimation;

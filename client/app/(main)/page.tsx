@@ -9,10 +9,13 @@ const Homepage = () => {
   const [isBroken, setIsBroken] = useState<boolean>(false);
 
   useEffect(() => {
-    // 仮のバックエンドAPI呼び出し
+    // ローカルストレージから水やり可否を確認
+    const canWater = localStorage.getItem("waterable") === "true";
+    setIsWaterable(canWater);
+
     const fetchStreakData = async () => {
       try {
-        const res = await fetch("/api/streak", { cache: "no-store" }); // エンドポイントは適宜
+        const res = await fetch("/api/streak", { cache: "no-store" });
         const data = await res.json();
         setStreakCount(data.streakCount);
         setIsBroken(data.isBroken);
@@ -24,6 +27,14 @@ const Homepage = () => {
     fetchStreakData();
   }, []);
 
+  const handleWater = () => {
+    const newCount = streakCount + 1;
+    setStreakCount(newCount);
+    setIsWaterable(false);
+    localStorage.setItem("waterable", "false");
+    // バックエンド更新処理も必要ならここに追加
+  };
+
   const buttonColor = isWaterable
     ? "bg-blue-500 hover:bg-blue-500"
     : "bg-gray-400 hover:bg-gray-300";
@@ -34,6 +45,7 @@ const Homepage = () => {
       <div className="flex flex-col items-center justify-center h-screen">
         <button
           disabled={!isWaterable}
+          onClick={handleWater}
           className={`${buttonColor} text-white font-bold py-2 px-4 rounded-4xl min-w-[200px]`}
         >
           水やり
@@ -54,4 +66,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-//
