@@ -21,13 +21,13 @@ export const RecordsQueries = {
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (task_id) REFERENCES tasks (id)
   )`,
-  insert: `INSERT INTO records (task_id, name) VALUES (?, ?)`,
-  update: `UPDATE records SET name = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+  insert: `INSERT INTO records (task_id, description) VALUES (?, ?)`,
+  update: `UPDATE records SET description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
   delete: `DELETE FROM records WHERE id = ?`,
   getAll: `SELECT * FROM records`,
   getById: `SELECT * FROM records WHERE id = ?`,
   getByTaskId: `SELECT * FROM records WHERE task_id = ?`,
   getByCreatedASC: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at ASC`,
   getByCreatedDESC: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at DESC`,
-  getLatestRecord: `SELECT * FROM records WHERE task_id = ? ORDER BY created_at DESC LIMIT 1`,
+  getLatestRecord: `SELECT * FROM records ORDER BY created_at DESC LIMIT 1`,
 };
