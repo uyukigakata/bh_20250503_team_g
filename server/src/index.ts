@@ -8,7 +8,7 @@ import { HTTPException } from "hono/http-exception";
 import { vValidator } from "@hono/valibot-validator";
 
 const app = new Hono();
-const db = new Database("src/database.db", { verbose: console.log });
+const db = new Database("src/db/database.db", { verbose: console.log });
 
 // cors 
 app.use("*", cors({ origin: "*" }));
