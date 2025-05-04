@@ -1,4 +1,6 @@
-import PlantAnimation from "components/PlantAnimation";
+"use client";
+import PlantAnimation from "../../components/PlantAnimation";
+import { useState } from "react";
 import Link from "next/link";
 
 const Homepage = () => {
