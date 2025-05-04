@@ -4,7 +4,6 @@ import { useState } from "react";
 export default function Page() {
     const [tasks, setTasks] = useState([
         { id: 1, title: "勉強", completed: false },
-        { id: 2, title: "筋トレ", completed: true },
     ]);
     const [taskTitle, setTaskTitle] = useState("");
 
@@ -12,7 +11,7 @@ export default function Page() {
         event.preventDefault();
         if (taskTitle.trim()) {
             setTasks([...tasks, { id: tasks.length + 1, title: taskTitle, completed: false }]);
-            setTaskTitle(""); // 入力欄をクリア
+            setTaskTitle("");
         }
     };
     const handleDelete = (taskId: number) => {
@@ -70,11 +69,13 @@ export default function Page() {
                 </div>
             ))}
             <div className="flex px-4 py-3">
+                <Link href="/timer">
                 <button
                     className="flex min-w-[84px] mx-auto max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-[#1980e6] text-slate-50 text-base font-bold leading-normal tracking-[0.015em]"
                 >
                     <span className="truncate">タスクを始める</span>
                 </button>
+                </Link>
             </div>
             <div className="h-5 bg-slate-50"></div>
         </div>
