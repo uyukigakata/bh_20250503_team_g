@@ -96,6 +96,15 @@ export default function Page() {
           </div>
         </div>
       ))}
+      <div>
+        <Link href="/timer">
+          <div className="flex px-4 py-3">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-[#1980E6] text-slate-50 text-base font-bold leading-normal tracking-[0.015em]">
+              <span className="truncate">タスクを開始する</span>
+            </button>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
