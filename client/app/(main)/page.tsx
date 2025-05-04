@@ -23,6 +23,11 @@ const Homepage = () => {
             Start Task
           </button>
         </Link>
+        <Link href="/calendar" className="mt-4">
+          <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-4xl min-w-[200px]">
+            タスク履歴を見る
+          </button>
+        </Link>
       </div>
     </div>
   );

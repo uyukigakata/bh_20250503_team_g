@@ -39,7 +39,6 @@ export default function Timer() {
             >
                 終了
             </button>
-
             {/* モーダルウィンドウ */}
             {!isRunning && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">

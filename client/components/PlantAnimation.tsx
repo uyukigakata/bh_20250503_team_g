@@ -9,6 +9,5 @@ const PlantAnimation = () => {
     </div>
   );
 };
-
 export default PlantAnimation;
 
