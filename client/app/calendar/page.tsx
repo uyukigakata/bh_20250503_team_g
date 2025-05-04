@@ -16,17 +16,17 @@ const Calendar: React.FC = () => {
         start: startOfMonth(currentMonth),
         end: endOfMonth(currentMonth),
     });
-    const handleNextMonth = () => setCurrentMonth((prev) =>addMonths(prev,1));
-    const handlePrevMonth = () => setCurrentMonth((prev) =>subMonths(prev,1));
+    const handleNextMonth = () => setCurrentMonth((prev) => addMonths(prev, 1));
+    const handlePrevMonth = () => setCurrentMonth((prev) => subMonths(prev, 1));
     return (
         <div className="max-w-md mx-auto p-4  mt-10 rounded-lg shadow">
-                  <div className="flex justify-between mb-2">
-        <button className="p-2 bg-gray-300 rounded" onClick={handlePrevMonth}>← 前月</button>
-        <h2 className="text-xl font-bold text-blue-700 text-center">
-                {format(currentMonth, "yyyy年MM月")}
-            </h2>
-        <button className="p-2 bg-gray-300 rounded" onClick={handleNextMonth}>次月 →</button>
-      </div>
+            <div className="flex justify-between mb-2">
+                <button className="p-2 bg-gray-300 rounded" onClick={handlePrevMonth}>← 前月</button>
+                <h2 className="text-xl font-bold text-blue-700 text-center">
+                    {format(currentMonth, "yyyy年MM月")}
+                </h2>
+                <button className="p-2 bg-gray-300 rounded" onClick={handleNextMonth}>次月 →</button>
+            </div>
             <div className="grid grid-cols-7 gap-3 mt-4">
                 {days.map((day) => {
                     const formattedDate = format(day, "yyyy-MM-dd");
@@ -35,7 +35,7 @@ const Calendar: React.FC = () => {
                         <div
                             key={formattedDate}
                             className={`p-3 rounded text-center transition ${isCompleted ? "bg-blue-600 rounded-full text-white hover:bg-blue-500 cursor-pointer" : "text-black cursor-default opacity-50"}`}
-                            onClick={() => isCompleted && setSelectedDay(formattedDate)} 
+                            onClick={() => isCompleted && setSelectedDay(formattedDate)}
                         >
                             {format(day, "dd")}
                         </div>
