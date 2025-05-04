@@ -10,7 +10,7 @@ import { vValidator } from "@hono/valibot-validator";
 const app = new Hono();
 const db = new Database("src/db/database.db", { verbose: console.log });
 
-// cors 
+// cors
 app.use("*", cors({ origin: "*" }));
 
 // テーブル作成
@@ -50,10 +50,11 @@ app.put(
   }
 );
 
-app.delete("/api/tasks/:id", vValidator("param", TaskSchema.delete), (c) => {
-  const { id } = c.req.valid("param");
+app.delete("/api/tasks/:id", (c) => {
+  const { id } = c.req.param();
+  console.log("Deleting task with ID:", id);
   try {
-    db.prepare(TasksQueries.delete).run(id);
+    db.prepare(TasksQueries.delete).run(Number(id));
   } catch (error) {
     throw new HTTPException(500, { message: "Failed to delete task" });
   }
