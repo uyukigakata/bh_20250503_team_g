@@ -1,4 +1,6 @@
-import PlantAnimation from '@/components/PlantAnimation';
+"use client";
+import { useEffect, useState } from "react";
+import PlantAnimation from "@/components/PlantAnimation";
 
 const Homepage = () => {
   return (
@@ -10,4 +12,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
