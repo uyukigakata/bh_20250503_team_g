@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [taskTitle, setTaskTitle] = useState("");
   const { tasks, addTask, deleteTask, fetchTasks } = useTask();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,7 +16,6 @@ export default function Page() {
     };
     fetchData();
   }, []);
-
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
     if (taskTitle.trim() !== "") {
@@ -26,11 +24,15 @@ export default function Page() {
       setTaskTitle("");
     }
   };
-
   const handleDeleteTask = async (taskId: number) => {
     console.log("Deleting task:", taskId);
     await deleteTask(taskId);
     await fetchTasks();
+  };
+  const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null);
+
+  const handleChange = (value: string) => {
+    setSelectedCheckbox(selectedCheckbox === value ? null : value); // クリックで選択＆解除
   };
 
   return (
@@ -79,13 +81,19 @@ export default function Page() {
       </form>
 
       {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between"
-        >
+        <div key={task.id} className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between">
           <p className="text-[#0e141b] text-base font-normal flex-1 truncate">
             {task.name}
           </p>
+
+          {/* 修正: 選択状態を task.id で管理 */}
+          <input
+            type="checkbox"
+            className="h-5 w-5 rounded border-[#d0dbe7] border-2 bg-transparent text-[#1980e6] checked:bg-[#1980e6] checked:border-[#1980e6] focus:ring-0 focus:outline-none"
+            checked={selectedCheckbox === task.id.toString()} // 修正: task.id を比較
+            onChange={() => handleChange(task.id.toString())} // 修正: task.id をセット
+          />
+
           <div className="flex items-center gap-3">
             <button
               className="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition"
@@ -96,15 +104,16 @@ export default function Page() {
           </div>
         </div>
       ))}
-      <div>
-        <Link href="/timer">
-          <div className="flex px-4 py-3">
-            <button className="flex min-w-[84px] max-w-[480px] mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-[#1980E6] text-slate-50 text-base font-bold leading-normal tracking-[0.015em]">
-              <span className="truncate">タスクを開始する</span>
-            </button>
-          </div>
-        </Link>
-      </div>
+
+      <Link href="/timer">
+        <div className="flex px-4 py-3 mx-auto">
+          <button
+            className="mx-auto flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-[#1980E6] text-slate-50 text-base font-bold leading-normal tracking-[0.015em]"
+          >
+            <span className="truncate">タスクを開始する</span>
+          </button>
+        </div>
+      </Link>
     </div>
   );
 }
